@@ -26,22 +26,30 @@ The reported failure is selecting an AI voice and seeing:
 
 1. Stop swallowing exceptions in the existing local premium patch.
 2. Describe its scope accurately; it does not provide server-side AI audio.
-3. Add an optional **Show AI speech error details** patch, restricted to 6.5.
+3. Include **Show AI speech error details** automatically with **Unlock Premium**.
+   Version 1.3.3 uses the same app compatibility as the premium patch and checks
+   for the matching speech API before changing code. Builds without that API
+   keep their original error handling. Version 6.5 is tested.
    It exposes the HTTP status already present in the exception, or identifies
    an invalid audio file. It does not display response bodies, request text,
    cookies, tokens, account data, or other credentials.
 4. Update the Gradle plugin and patcher to the current official template's
    2.1.1 / 2.4.0 versions. Include a public-tool portable build route.
 
+## Selection fix in v1.3.3
+
+Version 1.3.2 declared diagnostics as a separate default-disabled patch with an
+exact version restriction. Expert mode alone did not resolve selection on the
+affected phone. Version 1.3.3 removes that separate-selection requirement.
+
 ## Trying the diagnostic bundle
 
-Import `patches-1.3.2.mpp` into a current Morphe Manager, or add:
+Import `patches-1.3.3.mpp` into a current Morphe Manager, or add:
 https://morphe.software/add-source?github=Kostazk/LaKakaShitPatches
 
-Select the original, unpatched Instapaper 6.5 APK and enable both:
-
-- **Unlock Premium**
-- **Show AI speech error details** (off by default)
+Select the original, unpatched Instapaper 6.5 APK and enable **Unlock Premium**.
+The diagnostic patch is a dependency and runs automatically, even if Manager
+shows only the premium checkbox. Expert mode is not required.
 
 Patch and install using the same signing key as your current patched app.
 Selecting the AI voice again should reveal a more specific error. If Android
@@ -72,13 +80,15 @@ python tools/build_portable.py --java /path/to/java21/bin/java --jdk /path/to/jd
 
 The result includes both JVM classes and Android `classes.dex`, along with the
 original GPL extension and utility classes. It is written to
-`patches/build/libs/patches-1.3.2.mpp`. Java 21 or newer is needed for the tools;
+`patches/build/libs/patches-1.3.3.mpp`. Java 21 or newer is needed for the tools;
 the patch's own JVM bytecode target remains 11 and Android DEX minimum API is 26.
 
 ## Validation
 
 - Kotlin compilation and Android D8 compilation completed successfully.
-- Both Instapaper patches applied to the supplied 6.5 APK with Morphe's strict
-  `--validate` fingerprint checks; rebuilding succeeded with no failed patches.
+- With only **Unlock Premium** explicitly selected, both patches ran on the
+  supplied 6.5 APK under strict `--validate` checks. Rebuilding succeeded and
+  disassembly confirmed the diagnostic messages in the error mapper, so
+  diagnostics did not skip this APK.
 - The modified DEX was disassembled to check the local getter and diagnostic
   branches. No application installation or live account test was performed.

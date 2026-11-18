@@ -14,6 +14,9 @@ val unlockPremiumPatch = bytecodePatch(
 ) {
     compatibleWith(INSTAPAPER_COMPATIBILITY)
 
+    // Diagnostics must run even when Manager offers only the premium checkbox.
+    dependsOn(speechDiagnosticsPatch)
+
     execute {
         // A missing fingerprint must fail the patch instead of reporting success
         // without changing anything. The getter still matches Instapaper 6.5.

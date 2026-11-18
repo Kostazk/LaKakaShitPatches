@@ -2,9 +2,8 @@ package app.template.patches.instapaper
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
-import app.morphe.patcher.patch.AppTarget
-import app.morphe.patcher.patch.Compatibility
 import app.morphe.patcher.patch.bytecodePatch
+import app.template.patches.shared.Constants.INSTAPAPER_COMPATIBILITY
 
 private const val SPEECH_ERROR =
     "Lcom/instapaper/android/texttospeech/network/SpeechRemoteSourceException;"
@@ -15,24 +14,31 @@ private object SpeechErrorMessageFingerprint : Fingerprint(
     returnType = "Ljava/lang/String;"
 )
 
+private object SpeechStatusGetterFingerprint : Fingerprint(
+    definingClass = SPEECH_ERROR,
+    name = "a",
+    parameters = listOf(),
+    returnType = "Ljava/lang/Integer;"
+)
+
 /** Reveal the status already received by the client, without logging request data. */
 @Suppress("unused")
 val speechDiagnosticsPatch = bytecodePatch(
     name = "Show AI speech error details",
-    description = "Shows the HTTP status hidden by the generic AI speech error. Does not grant server access.",
-    default = false
+    description = "Included automatically with Unlock Premium. Shows AI speech HTTP errors on supported builds; tested on 6.5.",
+    default = true
 ) {
-    compatibleWith(Compatibility(
-        name = "Instapaper",
-        packageName = "com.instapaper.android",
-        targets = listOf(AppTarget(version = "6.5"))
-    ))
+    compatibleWith(INSTAPAPER_COMPATIBILITY)
 
     execute {
         // In 6.5 the two-argument resource mapper has three local registers.
         // Only v0/v1 are used here, and the original path receives untouched
         // parameters. No error-body text, article content or credentials appear.
-        val method = SpeechErrorMessageFingerprint.method
+        // Match the actual speech API instead of making Manager compare an
+        // exact version string. Older builds without this API keep their
+        // existing error handling and can still use the local premium patch.
+        SpeechStatusGetterFingerprint.methodOrNull ?: return@execute
+        val method = SpeechErrorMessageFingerprint.methodOrNull ?: return@execute
         check(method.implementation!!.registerCount - 3 >= 2) {
             "The speech error mapper no longer has the expected local registers."
         }

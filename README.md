@@ -3,9 +3,9 @@
 > Fork of [LaKakaReal/LaKakaShitPatches](https://github.com/LaKakaReal/LaKakaShitPatches).
 > This fork investigates Instapaper 6.5 AI speech errors. The existing local unlock
 > applies to 6.5, but cannot grant access on Instapaper's speech server.
-> **v1.3.2 is a diagnostic release, not an AI speech unlock.**
-> Enable **Show AI speech error details** along with **Unlock Premium** to see
-> the HTTP status hidden behind the generic speech error.
+> **v1.3.3 is a diagnostic release, not an AI speech unlock.**
+> Select **Unlock Premium**: AI speech diagnostics are now included automatically.
+> You do not need Expert mode or a separate diagnostic toggle.
 > [Findings, instructions, limitations and build steps](docs/instapaper-6.5.md).
 
 Repository for LaKaka's crappy slop patches compatible with Morphe.
@@ -19,7 +19,7 @@ Hello! Everything here is AI generated. I am using this to learn so I can hopefu
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.3.2](https://github.com/Kostazk/LaKakaShitPatches/releases/tag/v1.3.2)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;4 patches total
+> **[v1.3.3](https://github.com/Kostazk/LaKakaShitPatches/releases/tag/v1.3.3)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;4 patches total
 <details open>
 <summary>📦 Soundbrenner&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
 <br>
@@ -42,7 +42,7 @@ Hello! Everything here is AI generated. I am using this to learn so I can hopefu
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
 | [Unlock Premium](#unlock-premium) | Enables local premium features. AI speech still requires server access. |  |
-| Show AI speech error details | Optional HTTP-status and invalid-audio diagnostics; Instapaper 6.5 only. Off by default. |  |
+| Show AI speech error details | HTTP-status and invalid-audio diagnostics; included automatically with Unlock Premium. Tested on 6.5. |  |
 
 </details>
 

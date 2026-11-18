@@ -3,8 +3,8 @@
   "patches": [
     {
       "name": "Show AI speech error details",
-      "description": "Shows the HTTP status hidden by the generic AI speech error. Does not grant server access.",
-      "default": false,
+      "description": "Included automatically with Unlock Premium. Shows AI speech HTTP errors on supported builds; tested on 6.5.",
+      "default": true,
       "dependencies": [],
       "compatiblePackages": [
         {
@@ -12,11 +12,11 @@
           "name": "Instapaper",
           "description": null,
           "apkFileType": null,
-          "appIconColor": null,
+          "appIconColor": "#FFFFFF",
           "signatures": null,
           "targets": [
             {
-              "version": "6.5",
+              "version": null,
               "isExperimental": false,
               "minSdk": null,
               "description": null
@@ -55,7 +55,9 @@
       "name": "Unlock Premium",
       "description": "Enables local premium features. AI speech and other server services still require server-side access.",
       "default": true,
-      "dependencies": [],
+      "dependencies": [
+        "BytecodePatch"
+      ],
       "compatiblePackages": [
         {
           "packageName": "com.instapaper.android",
