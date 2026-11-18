@@ -1,6 +1,31 @@
 {
-  "version": "1.3.1",
+  "version": "v1.3.2",
   "patches": [
+    {
+      "name": "Show AI speech error details",
+      "description": "Shows the HTTP status hidden by the generic AI speech error. Does not grant server access.",
+      "default": false,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instapaper.android",
+          "name": "Instapaper",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "6.5",
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
     {
       "name": "Unlock Plus",
       "description": "Unlocks all Soundbrenner Plus features and Home Customization.",
@@ -28,7 +53,7 @@
     },
     {
       "name": "Unlock Premium",
-      "description": "Unlocks all premium features (search, speed reading, unlimited highlights).",
+      "description": "Enables local premium features. AI speech and other server services still require server-side access.",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [

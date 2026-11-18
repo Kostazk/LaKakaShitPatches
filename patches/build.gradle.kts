@@ -4,10 +4,10 @@ patches {
     about {
         name = "LaKaka's Patches"
         description = "Patches for apps I like"
-        source = "https://github.com/LaKakaReal/LaKakaShitPatches"
+        source = "https://github.com/Kostazk/LaKakaShitPatches"
         author = "LaKakaReal"
         contact = "na"
-        website = "https://github.com/LaKakaReal/LaKakaShitPatches"
+        website = "https://github.com/Kostazk/LaKakaShitPatches"
         license = "GPLv3"
     }
 }
